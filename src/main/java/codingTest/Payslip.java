@@ -7,7 +7,7 @@ import java.util.Locale;
 public class Payslip implements Serializable {
 	
 	/// Each Payslip object contains one Employee
-	private Employee employee = new Employee();
+	private Employee employee;
 	
 	/// Calculated based on Employee
 	private String payPeriod;
@@ -17,11 +17,8 @@ public class Payslip implements Serializable {
 	private int superAmount;
 	
 	public Payslip(Employee employee) {
-		this.employee.setFirstName(employee.getFirstName());
-		this.employee.setLastName(employee.getLastName());
-		this.employee.setPaymentStartDate(employee.getPaymentStartDate());
-		this.employee.setSalary(employee.getSalary());
-		this.employee.setSuperRate(employee.getSuperRate());
+		this.employee = new Employee(employee.getFirstName(), employee.getLastName(), 
+									employee.getSalary(), employee.getSuperRate());
 	}
 	
 	public void generatePayslip() {
