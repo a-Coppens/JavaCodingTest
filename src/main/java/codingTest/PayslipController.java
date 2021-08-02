@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class EmployeeController {
+public class PayslipController {
 	
 	@Autowired
-	EmployeeService employeeService;
+	PayslipService payslipService;
 	
 	/// Controller For the Employee Class
 	@GetMapping("/")
@@ -19,7 +19,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/generate") 
-	public ArrayList<Employee> generatePayslips() {
-		return employeeService.getAllEmployees();
+	public ArrayList<Payslip> generatePayslips() {
+		return payslipService.getAllPayslips();
 	}
 }

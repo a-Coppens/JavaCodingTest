@@ -10,6 +10,4 @@ public class CodingTestApplication {
 		SpringApplication.run(CodingTestApplication.class, args);
 	}
 	
-	
-
 }
