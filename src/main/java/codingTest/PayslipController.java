@@ -3,8 +3,13 @@ package codingTest;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 @RestController
 public class PayslipController {
@@ -19,7 +24,8 @@ public class PayslipController {
 	}
 	
 	@GetMapping("/generate") 
-	public ArrayList<Payslip> generatePayslips() {
-		return payslipService.getAllPayslips();
+	@ResponseBody
+	public ArrayList<Payslip> generatePayslips(HttpEntity<String> myEntity) throws JsonMappingException, JsonProcessingException {
+		return payslipService.getAllPayslips(myEntity);
 	}
 }

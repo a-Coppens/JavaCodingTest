@@ -1,50 +1,65 @@
 package codingTest;
 
 import java.io.Serializable;
+import java.text.DateFormatSymbols;
+import java.time.Year;
 import java.util.Calendar;
-import java.util.Locale;
+import java.util.GregorianCalendar;
 
 public class Payslip implements Serializable {
 	
+	/// Doesn't really matter here but gets rid of the warning
+	private static final long serialVersionUID = 1L;
+
 	/// Each Payslip object contains one Employee
 	private Employee employee;
 	
 	/// Calculated based on Employee
-	private String payPeriod;
+	private String fromDate;
+	private String toDate;
 	private int grossIncome;
 	private int incomeTax;
-	private int netIncome;
 	private int superAmount;
+	private int netIncome;
 	
+	
+	public Payslip() { 
+		this.employee = new Employee();
+	}
+	
+	/// Constructor for manual tests
 	public Payslip(Employee employee) {
 		this.employee = new Employee(employee.getFirstName(), employee.getLastName(), 
-									employee.getSalary(), employee.getSuperRate());
+						employee.getSalary(), employee.getSuperRate(), employee.getPaymentStartMonth());
 	}
 	
 	public void generatePayslip() {
-		//payPeriod = calcPayPeriod();
+		setPayPeriod();
 		grossIncome = calcGrossIncome();
 		incomeTax = calcIncomeTax();
 		netIncome = calcNetIncome();
 		superAmount = calcSuper();
 	}
 	
-	/// #TODO FIX
-	/// Not going to work for what we want
-	/*private String calcPayPeriod()
+	private void setPayPeriod()
 	{
-		Calendar cal = Calendar.getInstance();
-		/// Set the calendar date to the payment start date
-		cal.setTime(paymentStartDate);
-		/// get the month of cal as a string based on the locale of UK which AUS is based on
-		String month = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.UK);
+		int maxDayOfMonth;
+		int payMonth = this.employee.getPaymentStartMonth();
 		
-		/// Assumes that we don't want to store the pay date in a database as we have a string
-		/// if we were wanting to store in a database we would have two variables... the start and end dates of the payment month
+		/// Converts an month int to month string where 0 = January, 11 = December
+		String monthString = new DateFormatSymbols().getMonths()[payMonth];
 		
-		/// getActualMaximum returns the end date of the month based on the year so leap years are inclusive
-		return "01 " + month + " - " + cal.getActualMaximum(Calendar.DAY_OF_MONTH) + " " + month;
-	}*/
+		/// Creates a calendar based on the month given
+		/// Assumes that the payslip is for the current year
+		Calendar calendar = new GregorianCalendar(Year.now().getValue(), payMonth, 1);
+		
+		/// Finds the maximum number of days in a month based on our calendar
+		/// Works for Leap years with the assumption made above
+		maxDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		this.fromDate = "01 " + monthString;
+		this.toDate = maxDayOfMonth + " " + monthString;
+	}
 	
 	private int calcGrossIncome() {
 		return Math.round(this.employee.getSalary() / 12);
@@ -80,26 +95,28 @@ public class Payslip implements Serializable {
 		}
 
 		return incomeTax;
+	}
+	
+	private int calcNetIncome() {
+		return grossIncome - incomeTax;
+	}
 
+	private int calcSuper() {
+		return (int) (grossIncome * this.employee.getSuperRate());
 	}
 
 	public Employee getEmployee() {
 		return employee;
 	}
 
-	private int calcNetIncome() {
-		return grossIncome - incomeTax;
+	public String getFromDate() {
+		return fromDate;
 	}
-
-	private int calcSuper() {
-		/// divide by 100 assuming we get raw integer %; e.g 9% from user and not 0.09
-		return (int) (grossIncome * this.employee.getSuperRate());
+	
+	public String getToDate() {
+		return toDate;
 	}
-
-	public String getPayPeriod() {
-		return payPeriod;
-	}
-
+	
 	public int getGrossIncome() {
 		return grossIncome;
 	}
@@ -115,6 +132,26 @@ public class Payslip implements Serializable {
 	public int getSuperAmount() {
 		return superAmount;
 	}
+	
+	/// Set Employee values, seems a bit verbose? probably fine?
+	public void setFirstName(String firstName) {
+		employee.setFirstName(firstName);
+	}
 
+	public void setLastName(String lastName) {
+		employee.setLastName(lastName);
+	}
+
+	public void setSalary(int salary) {
+		employee.setSalary(salary);
+	}
+
+	public void setPaymentStartDate(int paymentStartDate) {
+		employee.setPaymentStartDate(paymentStartDate);
+	}
+
+	public void setSuperRate(double superRate) {
+		employee.setSuperRate(superRate);
+	}
 	
 }
