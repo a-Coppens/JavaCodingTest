@@ -76,22 +76,22 @@ public class Payslip implements Serializable {
 		/// 19c for each $1 over $18,200
 		else if (this.employee.getSalary() <= 37000) {
 			taxableIncome = this.employee.getSalary() - 18200;
-			incomeTax = (int) Math.round((taxableIncome * 0.19) / 12);
+			incomeTax = (int) Math.round((float)(taxableIncome * 0.19) / 12);
 		}
 		/// $3572 + 32.5c for each $1 over $37,000
 		else if (this.employee.getSalary() <= 87000) {
 			taxableIncome = this.employee.getSalary() - 37000;
-			incomeTax = (int) Math.round((3572 + taxableIncome * 0.325) / 12);
+			incomeTax = (int) Math.round((float)(3572 + taxableIncome * 0.325) / 12);
 		}
 		/// $19822 + 37c for each $1 over $87,000
 		else if (this.employee.getSalary() <= 180000) {
 			taxableIncome = this.employee.getSalary() - 87000;
-			incomeTax = (int) Math.round((19822 + taxableIncome * 0.37) / 12);
+			incomeTax = (int) Math.round((float)(19822 + taxableIncome * 0.37) / 12);
 		}
 		/// $54232 + 45c for each $1 over $180,000
 		else if (this.employee.getSalary() > 180000) {
 			taxableIncome = this.employee.getSalary() - 180000;
-			incomeTax = (int) Math.round((54232 + taxableIncome * 0.45) / 12);
+			incomeTax = (int) Math.round((float)(54232 + taxableIncome * 0.45) / 12);
 		}
 
 		return incomeTax;
