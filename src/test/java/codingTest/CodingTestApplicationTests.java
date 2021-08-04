@@ -44,7 +44,6 @@ class CodingTestApplicationTests {
 		payslipTest.generatePayslip();
 		
 		/// 19c for each $1 over $18,200
-		System.out.print("\nfirst is: " + Math.round((float)3572 / 12));
 		Assert.isTrue(payslipTest.getIncomeTax() == Math.round((float)3572 / 12), "Contains First Tier Income Tax");
 	}
 	
@@ -55,7 +54,6 @@ class CodingTestApplicationTests {
 		payslipTest.generatePayslip();
 		
 		/// $3572 + 32.5c for each $1 over $37,000
-		System.out.print("\nsecond is: " + Math.round((float)19822 / 12));
 		Assert.isTrue(payslipTest.getIncomeTax() == Math.round((float)19822 / 12), "Contains Second Tier Income Tax");
 	}
 	
@@ -66,7 +64,6 @@ class CodingTestApplicationTests {
 		payslipTest.generatePayslip();
 		
 		/// $19822 + 37c for each $1 over $87,000
-		System.out.print("\nthird is: " + Math.round((float)54232 / 12));
 		Assert.isTrue(payslipTest.getIncomeTax() == Math.round((float)54232 / 12), "Contains Third Tier Income Tax");
 	}
 	
@@ -77,7 +74,6 @@ class CodingTestApplicationTests {
 		payslipTest.generatePayslip();
 		
 		/// $54232 + 45c for each $1 over $180,000
-		System.out.print("\nfourth is: " + Math.round((float)108232 / 12));
 		Assert.isTrue(payslipTest.getIncomeTax() == Math.round((float)108232 / 12), "Contains Fourth Tier Income Tax");
 	}
 }
