@@ -11,8 +11,13 @@
 
 ![image](https://user-images.githubusercontent.com/45225697/128113363-0e26efa6-0f9e-4953-a7e8-fc7fb2591176.png)
 
+## Docker Deployment.
+### Note: requires docker (hosted at https://hub.docker.com/repository/docker/adamcoppens/coding-test-app)
+1. docker pull adamcoppens/coding-test-app
+2. docker run -p 8080:8080 adamcoppens/coding-test-app
+3. send json bodies as shown in other examples to http://localhost:8080/generate
 
-## Deployment
+## Local IDE Deployment
 1. Run Program from CodingTestApplication.java Start Point (Backend currently runs on localhost:8080)
 2. Using an API testing tool such as Postman send JSON objects as a GET request formatted like below through the body to the endpoint: http://localhost:8080/generate
 
