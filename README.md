@@ -4,7 +4,7 @@
 
 ## Assumptions
 ### Some Assumptions during the API development were made including:
-1. No database is needed - a query is sent from another service/microservice and the payslips will be returns to them as JSON
+1. No database is needed - a query is sent from another service/microservice and the payslips will be returned to them as JSON
 2. Data validation not required - another microservice will already have an existing database and knowledge of the format to query this microservice with.
 
 ## AWS URL
