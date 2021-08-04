@@ -1,8 +1,15 @@
 # JavaCodingTest
+## UML Diagram
+![ApplicationOverview](https://user-images.githubusercontent.com/45225697/128135905-272fcd4c-6d26-46ff-8d38-78b46d8a90d1.png)
+
+## Assumptions
+### Some Assumptions during the API development were made including:
+1. No database is needed - a query is sent from another service/microservice and the payslips will be returns to them as JSON
+2. Data validation not required - another microservice will already have an existing database and knowledge of the format to query this microservice with.
 
 ## AWS URL
-1. The application is currently hosted on AWS' Fargate through ECR at http://13.238.253.210:8080/generate
-2. The application requires a body to return anything, this can be done through an api tool such as Postman - https://www.postman.com/
+1. The application is currently hosted on AWS' Fargate through an ECR docker image at http://3.106.54.184:8080/generate
+2. The application requires a body to return anything, this can be done through an API tool such as Postman - https://www.postman.com/
 3. Use a get request and hitting the above mentioned endpoint with a body formatted like below in the raw format
 
 ![image](https://user-images.githubusercontent.com/45225697/128113269-1db41053-5387-4eec-8dc0-be22886e1eac.png)
