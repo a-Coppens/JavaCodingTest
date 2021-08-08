@@ -1,6 +1,7 @@
 package codingTest;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -76,4 +77,15 @@ class CodingTestApplicationTests {
 		/// $54232 + 45c for each $1 over $180,000
 		Assert.isTrue(payslipTest.getIncomeTax() == Math.round((float)108232 / 12), "Contains Fourth Tier Income Tax");
 	}
+	
+	@Test
+	void Map() {
+		Payslip payslipTest = new Payslip(new Employee("Foo", "Bar", 300000, 0.09, 1));
+		Optional<BigDecimal> tax;
+		payslipTest.generatePayslip();
+		tax = payslipTest.mapTax();
+		System.out.print(tax.get());
+		System.out.print("\n"+payslipTest.getIncomeTax());
+	}
+	
 }

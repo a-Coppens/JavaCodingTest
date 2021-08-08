@@ -1,10 +1,19 @@
 package codingTest;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.nio.file.Paths;
 import java.text.DateFormatSymbols;
 import java.time.Year;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Optional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
 
 public class Payslip implements Serializable {
 	
@@ -14,6 +23,9 @@ public class Payslip implements Serializable {
 	/// Each Payslip object contains one Employee
 	private Employee employee;
 	
+	/// 
+	private List<TaxThreshold> taxThresholds;
+	
 	/// Calculated based on Employee
 	private String fromDate;
 	private String toDate;
@@ -21,22 +33,41 @@ public class Payslip implements Serializable {
 	private int incomeTax;
 	private int superAmount;
 	private int netIncome;
+
 	
 	
 	public Payslip() { 
 		this.employee = new Employee();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			taxThresholds = Arrays.asList(mapper.readValue(Paths.get("src/main/resources/taxInput.json").toFile(), TaxThreshold[].class));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 	
 	/// Constructor for manual tests
 	public Payslip(Employee employee) {
 		this.employee = new Employee(employee.getFirstName(), employee.getLastName(), 
 						employee.getSalary(), employee.getSuperRate(), employee.getPaymentStartMonth());
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			taxThresholds = Arrays.asList(mapper.readValue(Paths.get("src/main/resources/taxInput.json").toFile(), TaxThreshold[].class));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		
 	}
 	
-	public void generatePayslip() {
+	public void generatePayslip() {		
+		double temp = mapTax().get().doubleValue();
+		
+		incomeTax =(int) Math.round(temp / 12);
 		setPayPeriod();
 		grossIncome = calcGrossIncome();
-		incomeTax = calcIncomeTax();
 		netIncome = calcNetIncome();
 		superAmount = calcSuper();
 	}
@@ -64,37 +95,14 @@ public class Payslip implements Serializable {
 	private int calcGrossIncome() {
 		return Math.round(this.employee.getSalary() / 12);
 	}
+		
 	
-	private int calcIncomeTax() {
-		int incomeTax = 0;
-		int taxableIncome;
+	public Optional<BigDecimal> mapTax() {
+		BigDecimal income = new BigDecimal(this.employee.getSalary());
+		Optional<BigDecimal> tax = taxThresholds.stream().map(t -> t.calculateTax(income)).filter(t -> t != null)
+				.findFirst();
 
-		/// NIL Income tax threshold
-		if (this.employee.getSalary() <= 18200) {
-			incomeTax = 0;
-		}
-		/// 19c for each $1 over $18,200
-		else if (this.employee.getSalary() <= 37000) {
-			taxableIncome = this.employee.getSalary() - 18200;
-			incomeTax = (int) Math.round((float)(taxableIncome * 0.19) / 12);
-		}
-		/// $3572 + 32.5c for each $1 over $37,000
-		else if (this.employee.getSalary() <= 87000) {
-			taxableIncome = this.employee.getSalary() - 37000;
-			incomeTax = (int) Math.round((float)(3572 + taxableIncome * 0.325) / 12);
-		}
-		/// $19822 + 37c for each $1 over $87,000
-		else if (this.employee.getSalary() <= 180000) {
-			taxableIncome = this.employee.getSalary() - 87000;
-			incomeTax = (int) Math.round((float)(19822 + taxableIncome * 0.37) / 12);
-		}
-		/// $54232 + 45c for each $1 over $180,000
-		else if (this.employee.getSalary() > 180000) {
-			taxableIncome = this.employee.getSalary() - 180000;
-			incomeTax = (int) Math.round((float)(54232 + taxableIncome * 0.45) / 12);
-		}
-
-		return incomeTax;
+		return tax;
 	}
 	
 	private int calcNetIncome() {
@@ -102,6 +110,7 @@ public class Payslip implements Serializable {
 	}
 
 	private int calcSuper() {
+		
 		return (int) (grossIncome * this.employee.getSuperRate());
 	}
 
