@@ -1,8 +1,5 @@
 package codingTest;
 
-import java.math.BigDecimal;
-import java.util.Optional;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,6 +49,7 @@ class CodingTestApplicationTests {
 	@DisplayName ("Second Tier Income Tax")
 	void isSecondTierTax() {
 		Payslip payslipTest = new Payslip(new Employee("Foo", "Bar", 87000, 0.09, 1));
+		
 		payslipTest.generatePayslip();
 		
 		/// $3572 + 32.5c for each $1 over $37,000
@@ -79,13 +77,26 @@ class CodingTestApplicationTests {
 	}
 	
 	@Test
-	void Map() {
-		Payslip payslipTest = new Payslip(new Employee("Foo", "Bar", 300000, 0.09, 1));
-		Optional<BigDecimal> tax;
+	@DisplayName ("Super Check")
+	void isSuperCorrect() {
+		Payslip payslipTest = new Payslip(new Employee("Foo", "Bar", 120000, 0.11, 1));
+		int expected = (int) Math.round((120000 * 0.11) / 12);
+		
 		payslipTest.generatePayslip();
-		tax = payslipTest.mapTax();
-		System.out.print(tax.get());
-		System.out.print("\n"+payslipTest.getIncomeTax());
+		
+		Assert.isTrue(expected == payslipTest.getSuperAmount(), "Super returns correct amount");
 	}
+	
+	@Test
+	@DisplayName ("Net Income Check")
+	void isNetIncomeCorrect() {
+		Payslip payslipTest = new Payslip(new Employee("Foo", "Bar", 60050, 0.11, 1));
+		int expected = (int) Math.round((60050 / 12) - 922);
+		
+		payslipTest.generatePayslip();
+		
+		Assert.isTrue(expected == payslipTest.getNetIncome(), "Net Income returns correct amount");
+	}
+	
 	
 }
