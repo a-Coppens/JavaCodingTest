@@ -53,6 +53,17 @@ jobs:
       - name: Install AWS CDK
         run: 'sudo npm install -g aws-cdk'
         
+      - name: Open Web Client Directory
+        run: |
+          ls -la
+          ls -la
+          
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+          ls -la
+        
       - name: CDK Deploy
         run: cdk deploy
         working-directory: CDK-AWS
