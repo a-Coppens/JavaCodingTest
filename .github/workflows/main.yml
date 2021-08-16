@@ -60,13 +60,6 @@ jobs:
           ls -la
           cd ./CodingTest-CDK/bin
           ls -la
-          
-      - name: CDK BootStrap
-        run: |
-          ls -la
-          cd ./CodingTest-CDK
-          ls -la
-          cdk bootstrap
-        
+                 
       - name: CDK Deploy
         run: cdk deploy --app CodingTest-CDK/bin/aws-cdk-project.ts --require-approval never
