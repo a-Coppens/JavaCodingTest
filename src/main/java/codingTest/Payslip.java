@@ -96,7 +96,6 @@ public class Payslip implements Serializable {
 		return Math.round(this.employee.getSalary() / 12);
 	}
 		
-	
 	public Optional<BigDecimal> mapTax() {
 		BigDecimal income = new BigDecimal(this.employee.getSalary());
 		Optional<BigDecimal> tax = taxThresholds.stream().map(t -> t.calculateTax(income)).filter(t -> t != null)
