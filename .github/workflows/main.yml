@@ -29,6 +29,6 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          file: 'CodingTest/src/main/docker/Dockerfile'
+          file: 'src/main/docker/Dockerfile'
           push: true
           tags: adamcoppens/coding-test-app:latest
