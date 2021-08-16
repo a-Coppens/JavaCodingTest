@@ -35,10 +35,12 @@ jobs:
   aws_cdk:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Checkout
         uses: actions/checkout@v2
         with:
-         submodules: true
+         repository: a-Coppens/CodingTest-CDK
+         path: './CodingTest-CDK'
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
