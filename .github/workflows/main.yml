@@ -46,7 +46,7 @@ jobs:
       uses: youyo/aws-cdk-github-actions@v2
       with:
         cdk_subcommand: 'deploy'
-        cdk_stack: 'aws-cdk-project-stack'
+        cdk_stack: 'aws-cdk-project'
         cdk_args: '--app'
         actions_comment: false
       env:
