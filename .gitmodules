@@ -1,0 +1,3 @@
+[submodule "CodingTest-CDK"]
+	path = CodingTest-CDK
+	url = https://github.com/a-Coppens/CodingTest-CDK
