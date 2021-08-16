@@ -63,7 +63,7 @@ jobs:
           
       - name: CDK BootStrap
         run: |
-          cd ./CodingTest-CDK/
+          cd ./CodingTest-CDK
           cdk bootstrap
         
       - name: CDK Deploy
