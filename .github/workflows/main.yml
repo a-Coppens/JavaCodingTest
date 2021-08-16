@@ -68,4 +68,4 @@ jobs:
           ls -la
         
       - name: CDK Deploy
-        run: cdk deploy --app CodingTest-CDK/bin/aws-cdk-project.ts
+        run: cdk deploy --app CodingTest-CDK/bin/aws-cdk-project.ts --require-approval never
