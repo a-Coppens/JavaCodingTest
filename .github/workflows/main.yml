@@ -57,6 +57,9 @@ jobs:
 
       - name: Deploy CDK
         run: |
+          ls -la
+          cd ./CodingTest-CDK/
+          ls -la
           cdk deploy --app ./CodingTest-CDK/cdk-out --require-approval never "*"
         env:
           AWS_REGION: ap-southeast-2
