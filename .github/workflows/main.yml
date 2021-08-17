@@ -57,6 +57,8 @@ jobs:
         
       - name: Install AWS CDK
         run: 'sudo npm install -g aws-cdk'
+        
+        ## TODO : CDK SYNTH
 
       - name: Deploy CDK
         run: |
