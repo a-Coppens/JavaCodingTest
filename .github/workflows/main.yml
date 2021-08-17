@@ -56,7 +56,7 @@ jobs:
         uses: youyo/aws-cdk-github-actions@v2
         with:
           cdk_subcommand: 'deploy'
-          cdk_stack: '-a aws-cdk-project.ts'
+          cdk_stack: 'aws-cdk-project.ts'
           cdk_args: '--require-approval never'
           actions_comment: false
           working_dir: 'CodingTest-CDK'
