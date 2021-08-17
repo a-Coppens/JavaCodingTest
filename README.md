@@ -8,7 +8,7 @@
 2. Data validation not required - another microservice will already have an existing database and knowledge of the format to query this microservice with.
 
 ## AWS URL
-1. The application is currently hosted on AWS' Fargate through an ECR docker image at http://3.106.54.184:8080/generate
+1. The application is currently hosted on AWS' Fargate through an ECR docker image at http://awscd-myfar-1e3hl0voh2gst-1630703603.ap-southeast-2.elb.amazonaws.com/generate
 2. The application requires a body to return anything, this can be done through an API tool such as Postman - https://www.postman.com/
 3. Use a get request and hitting the above mentioned endpoint with a body formatted like below in the raw format
 
