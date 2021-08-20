@@ -41,15 +41,15 @@ jobs:
           
        - name: Build, tag, and push the image to Amazon ECR
          env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
-          IMAGE_TAG: 1.0
+            ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+            ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
+            IMAGE_TAG: 1.0
          
        - name: Docker Build
-         run: docker build -f src/main/docker/Dockerfile -t public.ecr.aws/z8u8r9w4/my_test_repo:latest
+         run: docker build -f src/main/docker/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:latest
          
        - name: Push Docker to Image ECR Repo
-         run: docker push $ECR_REGISTRY/ECR_REPOSITORY:latest
+         run: docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
             
        - name: Run a multi-line script
          run: |
