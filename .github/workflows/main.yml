@@ -36,6 +36,6 @@ jobs:
        - name: Run a multi-line script
          run: |
           ls -la
-          cd ../
+          cd .../
           ls -la
 
