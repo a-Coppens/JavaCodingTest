@@ -28,13 +28,30 @@ jobs:
           ls -la
           cd .
           ls -la
-
+          
+       - name: Configure AWS credentials
+         uses: aws-actions/configure-aws-credentials@v1
+         with:
+           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+           aws-region: ap-southeast-1
+          
+       - name: Login to Amazon ECR
+         id: login-ecr
+         uses: aws-actions/amazon-ecr-login@v1
+          
+       - name: Build, tag, and push the image to Amazon ECR
+         id: build-image
+         env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
+          IMAGE_TAG: 1.0
          
        - name: Docker Build
-         run: docker build -f src/main/docker/Dockerfile -t adamcoppens/coding-test-app .
+         run: docker build -f src/main/docker/Dockerfile -t public.ecr.aws/z8u8r9w4/my_test_repo:latest
          
        - name: Push Docker to Image ECR Repo
-         run: docker push public.ecr.aws/z8u8r9w4/my_test_repo:latest
+         run: docker push $ECR_REGISTRY/ECR_REPOSITORY:latest
             
        - name: Run a multi-line script
          run: |
