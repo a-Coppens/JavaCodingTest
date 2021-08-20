@@ -32,7 +32,7 @@ jobs:
         IMAGE_TAG: 1.0
       run: |
         # Build a docker container and push it to ECR 
-        docker build -f src/main/docker/Dockerfile -t $ECR_REGISTRY/my_test_repo:$IMAGE_TAG .
+        docker build -f src/main/docker/Dockerfile -t $ECR_REGISTRY/test_code_repo:latest .
         echo "Pushing image to ECR..."
-        docker push $ECR_REGISTRY/my_test_repo:$IMAGE_TAG
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        docker push $ECR_REGISTRY/test_code_repo:latest
+        echo "::set-output name=image::$ECR_REGISTRY/test_code_repo:$IMAGE_TAG"
