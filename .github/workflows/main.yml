@@ -42,7 +42,7 @@ jobs:
             region: ap-southeast-1
             tags: latest,${{ github.sha }}
             create_repo: true 
-            path: src/main/docker
+            path: './src/main/docker'
             
        - name: Run a multi-line script
          run: |
