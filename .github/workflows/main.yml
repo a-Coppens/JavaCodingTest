@@ -33,20 +33,9 @@ jobs:
 
          
        - name: Build Docker push ECR
-         uses: vitr/actions-build-and-upload-to-ecs@master
-         with:
-            access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            account_id: ${{ secrets.AWS_ACCOUNT_ID }}
-            repo: test
-            region: ap-southeast-1
-            tags: latest,${{ github.sha }}
-            create_repo: true 
-            path: './src/main/docker'
+         run: docker build -f src/main/docker/Dockerfile -t adamcoppens/coding-test-app .
             
        - name: Run a multi-line script
          run: |
-          ls -la
-          cd ./CodingTest-CDK/bin
           ls -la
 
