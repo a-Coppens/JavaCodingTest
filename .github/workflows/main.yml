@@ -1,7 +1,7 @@
 on:
-  push:
-    branches: master
-
+ # push:
+    #branches: master
+  workflow_dispatch
 name: Node Project `my-app` CI on ECR
 
 jobs:
