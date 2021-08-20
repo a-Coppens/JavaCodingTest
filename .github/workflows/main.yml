@@ -30,8 +30,11 @@ jobs:
           ls -la
 
          
-       - name: Build Docker push ECR
+       - name: Docker Build
          run: docker build -f src/main/docker/Dockerfile -t adamcoppens/coding-test-app .
+         
+       - name: Push Docker to Image ECR Repo
+         run: docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
             
        - name: Run a multi-line script
          run: |
