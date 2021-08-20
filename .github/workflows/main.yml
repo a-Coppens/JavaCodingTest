@@ -28,7 +28,6 @@ jobs:
        - name: Run a multi-line script
          run: |
           ls -la
-          cd ./CodingTest-CDK/bin
           ls -la
 
          
