@@ -25,6 +25,13 @@ jobs:
        - name: Build Snapshots run Tests
          run: mvn --batch-mode --update-snapshots verify
          
+       - name: Run a multi-line script
+         run: |
+          ls -la
+          cd ./CodingTest-CDK/bin
+          ls -la
+
+         
        - name: Build Docker push ECR
          uses: vitr/actions-build-and-upload-to-ecs@master
          with:
