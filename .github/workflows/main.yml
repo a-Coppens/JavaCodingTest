@@ -15,7 +15,26 @@ jobs:
     steps:
        - name: Checkout
          uses: actions/checkout@v2
-      
+         
+       - name: setup Java Environment
+         uses: actions/setup-java@v2
+         with:
+           java-version: '11'
+           distribution: 'adopt'      
+           
+       - name: Build Snapshots run Tests
+         run: mvn --batch-mode --update-snapshots verify
+         
+       - name: Build Docker push ECR
+       - uses: vitr/actions-build-and-upload-to-ecs@master
+         with:
+            access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+            repo: docker/repo
+            region: ap-southeast-1
+            tags: latest,${{ github.sha }}
+            create_repo: true 
             
        - name: Run a multi-line script
          run: |
