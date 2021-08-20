@@ -1,10 +1,11 @@
 package codingTest;
 
-import java.util.ArrayList;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,11 +22,12 @@ public class PayslipController {
 	@GetMapping("/")
 	public String index() {
 		return "asdfHello from the index page, this endpoint has no function for now... try /generate to generate payslips!";
+
 	}
 	
-	@GetMapping("/generate") 
+	@PostMapping("/generate") 
 	@ResponseBody
-	public ArrayList<Payslip> generatePayslips(HttpEntity<String> myEntity) throws JsonMappingException, JsonProcessingException {
-		return payslipService.getAllPayslips(myEntity);
+	public List<Payslip> generatePayslips(@RequestBody List<Employee> employees) throws JsonMappingException, JsonProcessingException {
+		return payslipService.getAllPayslips(employees);
 	}
 }

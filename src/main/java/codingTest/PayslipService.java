@@ -1,9 +1,11 @@
 package codingTest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -14,15 +16,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service 
 public class PayslipService {
 	
-	public ArrayList<Payslip> getAllPayslips(HttpEntity<String> jsonBody) throws JsonMappingException, JsonProcessingException {
+	public List<Payslip> getAllPayslips(List<Employee> employees) throws JsonMappingException, JsonProcessingException {
 			
-		String json = jsonBody.getBody();
-		ArrayList<Payslip> listOfPayslips = new ObjectMapper().readValue(json, new TypeReference<ArrayList<Payslip>>() {});
+		List<Payslip> payslips = new ArrayList<Payslip>();
 		
-		for(Payslip payslip : listOfPayslips) {
-			payslip.generatePayslip(); 
+		for(Employee employee : employees) {
+			Payslip payslip = new Payslip(employee);
+			payslips.add(payslip);
 		}
-		return listOfPayslips;
+		
+		for(Payslip payslip : payslips) {
+			payslip.generatePayslip();
+		}
+		
+		return payslips;
 	}
 	
 }
