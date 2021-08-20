@@ -48,7 +48,7 @@ jobs:
          
  
          run: |
-           docker build -t public.ecr.aws/z8u8r9w4/my_test_repo:latest
+           run: docker build -f src/main/docker/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY
            echo "Pushing image to ECR..."
            docker push public.ecr.aws/z8u8r9w4/my_test_repo:latest
            echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
