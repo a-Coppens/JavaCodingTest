@@ -38,4 +38,6 @@ jobs:
        - name: Run a multi-line script
          run: |
           ls -la
+          cd ./target
+          ls -la
 
