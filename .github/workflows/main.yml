@@ -46,3 +46,4 @@ jobs:
         echo "Pushing image to ECR..."
         docker push $ECR_REGISTRY/test_code_repo:latest
         echo "::set-output name=image::$ECR_REGISTRY/test_code_repo:$IMAGE_TAG"
+        aws ecs update-service --cluster AwsCdkProjectStack-MyCluster4C1BA579-Ba8zINSsTKmY --service AwsCdkProjectStack-MyFargateServiceF490C034-vdDh3mibHLrE --force-new-deployment
