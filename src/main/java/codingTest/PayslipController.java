@@ -21,7 +21,7 @@ public class PayslipController {
 	/// Controller For the Employee Class
 	@GetMapping("/")
 	public String index() {
-		return "testUpdateHello from the index page, this endpoint has no function for now... try /generate to generate payslips!";
+		return "Hey guys";
 
 	}
 	
